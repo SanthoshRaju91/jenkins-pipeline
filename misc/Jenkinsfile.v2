@@ -13,9 +13,9 @@ node {
             sh 'npm test'
         }
     }
-    stage('test with DB') {
+    stage('test with DB') {        
         def mysql = docker.image('mysql').run("-e MYSQL_ALLOW_EMPTY_PASSWORD=yes")
-        def myTestContainer = docker.image('node:10')
+        def myTestContainer = docker.image('node:4.6')
         myTestContainer.pull()
         myTestContainer.inside("--link ${mysql.id}:mysql") {
             sh 'npm install --only-dev'
